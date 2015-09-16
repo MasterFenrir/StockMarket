@@ -23,5 +23,7 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         content.getTabs();
         System.out.println("Hello!");
+        Builder builder = new Builder();
+        builder.build();
     }
 }
