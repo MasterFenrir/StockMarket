@@ -35,7 +35,7 @@ public class Stock extends Observable{
         this.price = 0.0;
     }
 
-    Stock(String name, double price){
+    public Stock(String name, double price){
         super();
         this.name = name;
         this. price = price;

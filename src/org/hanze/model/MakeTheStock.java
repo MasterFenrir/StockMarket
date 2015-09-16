@@ -13,7 +13,7 @@ public class MakeTheStock implements Runnable{
 
     private MakeTheStock(){}
 
-    MakeTheStock(Stock stock){
+    public MakeTheStock(Stock stock){
         this.stock = stock;
     }
 
