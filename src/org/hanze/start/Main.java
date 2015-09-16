@@ -1,4 +1,4 @@
-package sample;
+package org.hanze.start;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
