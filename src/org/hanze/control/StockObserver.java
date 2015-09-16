@@ -17,14 +17,14 @@ public class StockObserver extends Observable implements Observer{
     public StockObserver(List<Observer> views){
         for(Observer view : views){
             this.addObserver(view);
-            System.out.println(((StockView)view).getViewName());
+//            System.out.println(((StockView)view).getViewName());
         }
     }
 
     @Override
     public void update(Observable o, Object arg) {
         this.setChanged();
-        System.out.println("A Observer has observed!");
+//        System.out.println("A Observer has observed!");
         this.notifyObservers(o);
     }
 }

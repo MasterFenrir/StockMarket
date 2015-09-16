@@ -32,7 +32,7 @@ public class TextController implements Observer, StockView {
     @Override
     public void update(Observable o, Object arg) {
         if (arg.getClass() == Stock.class) {
-            System.out.println("Update !");
+//            System.out.println("Update !");
             Stock stock = (Stock) arg;
             String name = stock.getName();
             if (labels.get(name) == null) {
@@ -40,9 +40,9 @@ public class TextController implements Observer, StockView {
                 Platform.runLater(() -> textPane.getChildren().add(labels.get(name)));
             }
             Platform.runLater(() -> labels.get(name).setText(name + " : " + stock.getPrice()));
-            for (Map.Entry<String, Label> entry : labels.entrySet()) {
-                System.out.println("the valeu of" + entry.getKey() + " is: " + entry.getValue());
-            }
+//            for (Map.Entry<String, Label> entry : labels.entrySet()) {
+//                System.out.println("the valeu of" + entry.getKey() + " is: " + entry.getValue());
+//            }
 
         }
     }
