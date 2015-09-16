@@ -17,6 +17,7 @@ public class Stock extends Observable{
 
     public void setName(String name) {
         this.name = name;
+        this.setChanged();
         this.notifyObservers();//notify all  the observers
     }
 
@@ -26,10 +27,11 @@ public class Stock extends Observable{
 
     public void setPrice(double price) {
         this.price = price;
+        this.setChanged();
         this.notifyObservers();//notify all  the observers
     }
 
-    Stock(){
+    private Stock(){
         super();
         this.name = "defaultStockName";
         this.price = 0.0;
