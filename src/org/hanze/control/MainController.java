@@ -6,13 +6,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
+import org.hanze.model.MakeTheStock;
+import org.hanze.model.Stock;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observer;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Created by Sander on 9/16/2015.
@@ -36,14 +35,31 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Observer> observers = new ArrayList<>();
-        Observer obs;
+        List<Observer> views = new ArrayList<>();
+        List<Stock> stocks = new ArrayList<>();
+        List<MakeTheStock> stockMakers = new ArrayList<>();
+        List<Observer> stockObservers = new ArrayList<>();
+        double[] prices = {11.3, 44.4, 5.23};
+        Stack<String> names = new Stack<>();
+        names.add("IBM");
+        names.add("APPL");
+        names.add("RTPSN");
+
+        Observer view;
         for (String e : VIEW_FILES) {
-            obs = tabLoader(e);
-            if (obs != null) observers.add(obs);
+            view = tabLoader(e);
+            if (view != null) views.add(view);
         }
-        Builder builder = new Builder();
-        builder.build();
+
+        int i = 0;
+        for(double price : prices){
+            stocks.add(new Stock(names.pop(), price));
+            stockObservers.add(new StockObserver(views));
+            stocks.get(i).addObserver(stockObservers.get(i));
+            stockMakers.add(new MakeTheStock(stocks.get(i)));
+            new Thread(stockMakers.get(i)).run();
+            i++;
+        }
     }
 
     /**
