@@ -57,7 +57,7 @@ public class MainController implements Initializable {
             stockObservers.add(new StockObserver(views));
             stocks.get(i).addObserver(stockObservers.get(i));
             stockMakers.add(new MakeTheStock(stocks.get(i)));
-            new Thread(stockMakers.get(i)).run();
+            new Thread(stockMakers.get(i)).start();
             i++;
         }
     }
