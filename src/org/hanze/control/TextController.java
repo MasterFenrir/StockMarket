@@ -1,6 +1,7 @@
 package org.hanze.control;
 
 import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -27,6 +28,7 @@ public class TextController implements Observer, StockView {
         labels = new HashMap<>();
     }
 
+
     @Override
     public void update(Observable o, Object arg) {
         if (arg.getClass() == Stock.class) {
@@ -35,15 +37,13 @@ public class TextController implements Observer, StockView {
             String name = stock.getName();
             if (labels.get(name) == null) {
                 labels.put(name, new Label());
-                labels.get(name).setText(name + " : " + stock.getPrice());
-                //textPane.getChildren().add(labels.get(name));
-            }else {
-                labels.get(name).setText(name + " : " + stock.getPrice());
+                Platform.runLater(() -> textPane.getChildren().add(labels.get(name)));
+            }
+            Platform.runLater(() -> labels.get(name).setText(name + " : " + stock.getPrice()));
+            for (Map.Entry<String, Label> entry : labels.entrySet()) {
+                System.out.println("the valeu of" + entry.getKey() + " is: " + entry.getValue());
             }
 
-            for(Map.Entry<String, Label> entry : labels.entrySet()){
-                System.out.println("the valeu of"+ entry.getKey() + " is: " + entry.getValue());
-            }
         }
     }
 
