@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.StackPane?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.hanze.control.TextController" maxHeight="-Infinity"
-           maxWidth="-Infinity" minHeight="-Infinity"
-           minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8">
+<?import javafx.scene.layout.VBox?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+           minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
+           fx:controller="org.hanze.control.TextController">
     <children>
-        <LineChart>
-            <xAxis>
-                <CategoryAxis side="BOTTOM"/>
-            </xAxis>
-            <yAxis>
-                <NumberAxis side="LEFT"/>
-            </yAxis>
-        </LineChart>
+        <ScrollPane hbarPolicy="NEVER">
+            <content>
+                <VBox fx:id="textPane" prefHeight="378.0" prefWidth="364.0"/>
+            </content>
+        </ScrollPane>
     </children>
 </StackPane>
