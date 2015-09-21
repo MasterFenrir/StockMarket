@@ -8,7 +8,7 @@ import java.util.Locale;
 /**
  * Created by wessel on 16-9-2015.
  *
- * this thing will generate stock fuctuation
+ * this thing will generate stock fluctuation
  */
 public class MakeTheStock implements Runnable{
     private Stock stock;
