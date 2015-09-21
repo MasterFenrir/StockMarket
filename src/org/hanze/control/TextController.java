@@ -31,7 +31,7 @@ public class TextController implements Observer, StockView, Initializable {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public synchronized void update(Observable o, Object arg) {
         if (arg.getClass() == Stock.class) {
             Stock stock = (Stock) arg;
             String name = stock.getName();

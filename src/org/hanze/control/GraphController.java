@@ -8,10 +8,8 @@ import javafx.scene.chart.XYChart;
 import org.hanze.model.Stock;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.ResourceBundle;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Sander on 9/16/2015.
@@ -22,31 +20,25 @@ public class GraphController implements Observer, StockView, Initializable {
 
     @FXML
     private LineChart stockLineChart;
-    private HashMap<String, XYChart.Series<Number, Number>> series;
-    private int counter = 1;
+    private HashMap<String, XYChart.Series<String, Number>> series;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         series = new HashMap<>();
-        stockLineChart.prefHeightProperty().bind(stockLineChart.getParent().layoutYProperty());
-        stockLineChart.prefWidthProperty().bind(stockLineChart.getParent().layoutXProperty());
-//        stockLineChart.setPrefSize(700, 700);
-//        stockLineChart.setMinSize(700, 700);
-//        stockLineChart.setMaxSize(700, 700);
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public synchronized void update(Observable o, Object arg) {
         String name = ((Stock) arg).getName();
         Double price = ((Stock) arg).getPrice();
         if (series.get(name) == null) {
-            XYChart.Series<Number, Number> serie = new XYChart.Series<Number, Number>();
+            XYChart.Series<String, Number> serie = new XYChart.Series<>();
             serie.setName(name);
             series.put(name, serie);
             Platform.runLater(() -> stockLineChart.getData().add(serie));
         }
-        Platform.runLater(() -> series.get(name).getData().add(new XYChart.Data(counter, price)));
-        counter++;
+        Platform.runLater(() -> series.get(name).getData().add(new XYChart.Data(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()), price)));
+        if (series.get(name).getData().size() > 10) series.get(name).getData().remove(0);
     }
 
     @Override
