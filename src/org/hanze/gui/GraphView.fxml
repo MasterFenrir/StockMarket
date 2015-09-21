@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.StackPane?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.hanze.control.GraphController" maxHeight="-Infinity"
            maxWidth="-Infinity" minHeight="-Infinity"
-           minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8">
+           minWidth="-Infinity" prefHeight="900.0" prefWidth="1800.0" xmlns="http://javafx.com/javafx/8">
     <children>
-        <LineChart>
+        <LineChart fx:id="stockLineChart" StackPane.alignment="CENTER">
             <xAxis>
                 <CategoryAxis side="BOTTOM"/>
             </xAxis>

@@ -1,38 +1,42 @@
 package org.hanze.control;
 
-import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import org.hanze.model.Stock;
 
+import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.ResourceBundle;
 
 /**
  * Created by Sander on 9/16/2015.
+ * A controller for the Text view
  */
-public class TextController implements Observer, StockView {
+public class TextController implements Observer, StockView, Initializable {
 
+    // The name of the view
     private static String VIEW_NAME = "Text";
 
+    // A map of labels with stock information
     private HashMap<String, Label> labels;
 
+    // The textPane
     @FXML
     private Pane textPane;
 
-    public TextController() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         labels = new HashMap<>();
     }
 
-
     @Override
-    public void update(Observable o, Object arg) {
+    public synchronized void update(Observable o, Object arg) {
         if (arg.getClass() == Stock.class) {
-//            System.out.println("Update !");
             Stock stock = (Stock) arg;
             String name = stock.getName();
             if (labels.get(name) == null) {
@@ -40,10 +44,6 @@ public class TextController implements Observer, StockView {
                 Platform.runLater(() -> textPane.getChildren().add(labels.get(name)));
             }
             Platform.runLater(() -> labels.get(name).setText(name + " : " + stock.getPrice()));
-//            for (Map.Entry<String, Label> entry : labels.entrySet()) {
-//                System.out.println("the valeu of" + entry.getKey() + " is: " + entry.getValue());
-//            }
-
         }
     }
 

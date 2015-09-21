@@ -2,40 +2,42 @@ package org.hanze.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.Locale;
 
 /**
- * Created by wessel on 16-9-2015.
- *
- * this thing will generate stock fluctuation
+ * Created by Wessel on 16-9-2015.
+ * <p>
+ * this class will generate stock fluctuation
  */
-public class MakeTheStock implements Runnable{
+public class MakeTheStock implements Runnable {
+
+    // The stock to fluctuate
     private Stock stock;
+    // A boolean to stop the thread
     private boolean stopped = false;
 
-    private MakeTheStock(){}
-
-    public MakeTheStock(Stock stock){
+    /**
+     * Initialize this object with a Stock object to change in the thread
+     *
+     * @param stock
+     */
+    public MakeTheStock(Stock stock) {
         this.stock = stock;
     }
 
     /**
-     * stops the thread
+     * Stops the thread
      */
-    public synchronized void stopThread(){
+    public synchronized void stopThread() {
         this.stopped = true;
     }
 
     /**
-     * the running method that continiously changes the price
+     * The running method that continiously changes the price
      */
     @Override
     public void run() {
         while (!stopped) {//while not stopped keep running
-
             double randNum = (Math.random() * (.06)) - .03;//get a new random number between -0.03 and 0.03
-            DecimalFormat df = new DecimalFormat("#.##");//get a decimal format that rounds to 2 decimals
             BigDecimal bd = new BigDecimal(stock.getPrice() + randNum);
             bd = bd.setScale(2, RoundingMode.HALF_UP);
             stock.setPrice(bd.doubleValue());//make our new price by adding randNum and rounding to 2 decimals
@@ -45,6 +47,5 @@ public class MakeTheStock implements Runnable{
                 e.printStackTrace();
             }
         }
-        //were done
     }
 }
