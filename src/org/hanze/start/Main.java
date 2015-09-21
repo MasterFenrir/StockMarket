@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.hanze.control.MainController;
 
 public class Main extends Application {
 
@@ -19,7 +20,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../gui/MainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/MainView.fxml"));
+        Parent root = loader.load();
+
+        primaryStage.setOnCloseRequest((e) -> {
+            MainController cont = loader.<MainController>getController();
+            cont.stopStockMakers();
+        });
 
         primaryStage.setTitle("Stock Market");
         primaryStage.setScene(new Scene(root, 900, 700));

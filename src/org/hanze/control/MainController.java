@@ -10,6 +10,8 @@ import org.hanze.model.MakeTheStock;
 import org.hanze.model.Stock;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.*;
 
@@ -22,6 +24,8 @@ public class MainController implements Initializable {
     private static final String[] VIEW_FILES = {"../gui/GraphView.fxml", "../gui/TextView.fxml"};
     // The stock names
     private static final String[] STOCK_NAMES = {"IBM", "APPL", "RTPSN"};
+
+    private List<MakeTheStock> stockMakers;
 
     // The content pane
     @FXML
@@ -36,34 +40,50 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<Observer> views = new ArrayList<>();
-        List<Stock> stocks = new ArrayList<>();
-        List<MakeTheStock> stockMakers = new ArrayList<>();
-        List<Observer> stockObservers = new ArrayList<>();
-        double[] prices = {11.3, 44.4, 5.23};
-        Stack<String> names = new Stack<>();
-        names.add("IBM");
-        names.add("APPL");
-        names.add("RTPSN");
-
+        stockMakers = new ArrayList<>();
         Observer view;
         for (String e : VIEW_FILES) {
             view = tabLoader(e);
             if (view != null) views.add(view);
         }
+        createStocks(views);
+    }
 
-        int i = 0;
-        for (double price : prices) {
-            stocks.add(new Stock(names.pop(), price));
-            stockObservers.add(new StockObserver(views));
-            stocks.get(i).addObserver(stockObservers.get(i));
-            stockMakers.add(new MakeTheStock(stocks.get(i)));
-            new Thread(stockMakers.get(i)).start();
-            i++;
+    /**
+     * Stop the stockmakers
+     */
+    public void stopStockMakers() {
+        for (MakeTheStock e : stockMakers) {
+            e.stopThread();
         }
     }
 
-    private void createStocks(List<StockView> views) {
+    /**
+     * Create the stocks and start the fluctuation
+     *
+     * @param views
+     */
+    private void createStocks(List<Observer> views) {
+        for (String e : STOCK_NAMES) {
+            Stock stock = new Stock(e, getRandomPrice(20));
+            StockObserver obs = new StockObserver(views);
+            stock.addObserver(obs);
+            MakeTheStock maker = new MakeTheStock(stock);
+            stockMakers.add(maker);
+            new Thread(maker).start();
+        }
+    }
 
+    /**
+     * Get a random price
+     *
+     * @param upperBound The upperbound
+     * @return
+     */
+    private double getRandomPrice(int upperBound) {
+        Random rand = new Random();
+        BigDecimal bd = new BigDecimal(rand.nextInt(upperBound) + rand.nextDouble());
+        return bd.setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
@@ -80,6 +100,8 @@ public class MainController implements Initializable {
             String name = cont.getViewName();
             Tab nTab = new Tab(name, tab);
             content.getTabs().add(nTab);
+            content.prefHeightProperty().bind(content.getParent().layoutYProperty());
+            content.prefWidthProperty().bind(content.getParent().layoutXProperty());
             return (Observer) cont;
         } catch (IOException e) {
             e.printStackTrace();

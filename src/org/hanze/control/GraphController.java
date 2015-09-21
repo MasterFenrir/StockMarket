@@ -25,8 +25,14 @@ public class GraphController implements Observer, StockView, Initializable {
     private HashMap<String, XYChart.Series<Number, Number>> series;
     private int counter = 1;
 
-    public GraphController() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         series = new HashMap<>();
+        stockLineChart.prefHeightProperty().bind(stockLineChart.getParent().layoutYProperty());
+        stockLineChart.prefWidthProperty().bind(stockLineChart.getParent().layoutXProperty());
+//        stockLineChart.setPrefSize(700, 700);
+//        stockLineChart.setMinSize(700, 700);
+//        stockLineChart.setMaxSize(700, 700);
     }
 
     @Override
@@ -48,10 +54,5 @@ public class GraphController implements Observer, StockView, Initializable {
         return VIEW_NAME;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //series.getData().add(new XYChart.Data<>(1, 23.0));
-//        series.getData().add(new XYChart.Data(2, 14));
-        //stockLineChart.getData().add(series);
-    }
+
 }
