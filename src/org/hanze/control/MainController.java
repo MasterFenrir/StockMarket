@@ -18,14 +18,14 @@ import java.util.*;
  */
 public class MainController implements Initializable {
 
+    // The view files
     private static final String[] VIEW_FILES = {"../gui/GraphView.fxml", "../gui/TextView.fxml"};
+    // The stock names
+    private static final String[] STOCK_NAMES = {"IBM", "APPL", "RTPSN"};
 
+    // The content pane
     @FXML
     private TabPane content;
-
-    public MainController() {
-
-    }
 
     /**
      * Initialize the GUI
@@ -52,7 +52,7 @@ public class MainController implements Initializable {
         }
 
         int i = 0;
-        for(double price : prices){
+        for (double price : prices) {
             stocks.add(new Stock(names.pop(), price));
             stockObservers.add(new StockObserver(views));
             stocks.get(i).addObserver(stockObservers.get(i));
@@ -60,6 +60,10 @@ public class MainController implements Initializable {
             new Thread(stockMakers.get(i)).start();
             i++;
         }
+    }
+
+    private void createStocks(List<StockView> views) {
+
     }
 
     /**
