@@ -1,6 +1,5 @@
 package org.hanze.control;
 
-import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -8,7 +7,6 @@ import javafx.scene.layout.Pane;
 import org.hanze.model.Stock;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,6 +35,7 @@ public class TextController implements Observer, StockView {
             String name = stock.getName();
             if (labels.get(name) == null) {
                 labels.put(name, new Label());
+                //if(labels.get(name) == null) System.out.println("The fuck son");
                 Platform.runLater(() -> textPane.getChildren().add(labels.get(name)));
             }
             Platform.runLater(() -> labels.get(name).setText(name + " : " + stock.getPrice()));
