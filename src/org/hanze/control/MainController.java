@@ -100,8 +100,6 @@ public class MainController implements Initializable {
             String name = cont.getViewName();
             Tab nTab = new Tab(name, tab);
             content.getTabs().add(nTab);
-            content.prefHeightProperty().bind(content.getParent().layoutYProperty());
-            content.prefWidthProperty().bind(content.getParent().layoutXProperty());
             return (Observer) cont;
         } catch (IOException e) {
             e.printStackTrace();

@@ -6,6 +6,6 @@
            minWidth="-Infinity" prefHeight="700" prefWidth="900" xmlns="http://javafx.com/javafx/8"
            fx:controller="org.hanze.control.MainController">
     <children>
-        <TabPane fx:id="content" tabClosingPolicy="UNAVAILABLE"/>
+        <TabPane fx:id="content" tabClosingPolicy="UNAVAILABLE" StackPane.alignment="CENTER"/>
     </children>
 </StackPane>

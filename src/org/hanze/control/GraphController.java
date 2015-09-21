@@ -13,18 +13,42 @@ import java.util.*;
 
 /**
  * Created by Sander on 9/16/2015.
+ * A controller to control a graph
  */
 public class GraphController implements Observer, StockView, Initializable {
 
+    // The name of the view
     private static String VIEW_NAME = "Graph";
 
+    // The graph
     @FXML
     private LineChart stockLineChart;
+    // The data points
     private HashMap<String, XYChart.Series<String, Number>> series;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         series = new HashMap<>();
+
+        // Zoom in and out
+        stockLineChart.setOnScroll(event -> {
+            event.consume();
+            if (event.getDeltaY() == 0) {
+                return;
+            }
+            double scaleFactor = (event.getDeltaY() > 0) ? 1.1 : 1 / 1.1;
+
+            stockLineChart.setScaleX(stockLineChart.getScaleX() * scaleFactor);
+            stockLineChart.setScaleY(stockLineChart.getScaleY() * scaleFactor);
+        });
+
+        // Reset
+        stockLineChart.setOnMousePressed(event -> {
+            if (event.getClickCount() == 2) {
+                stockLineChart.setScaleX(1.0);
+                stockLineChart.setScaleY(1.0);
+            }
+        });
     }
 
     @Override
@@ -45,6 +69,5 @@ public class GraphController implements Observer, StockView, Initializable {
     public String getViewName() {
         return VIEW_NAME;
     }
-
 
 }

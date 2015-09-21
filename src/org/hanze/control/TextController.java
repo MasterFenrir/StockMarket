@@ -15,13 +15,17 @@ import java.util.ResourceBundle;
 
 /**
  * Created by Sander on 9/16/2015.
+ * A controller for the Text view
  */
 public class TextController implements Observer, StockView, Initializable {
 
+    // The name of the view
     private static String VIEW_NAME = "Text";
 
+    // A map of labels with stock information
     private HashMap<String, Label> labels;
 
+    // The textPane
     @FXML
     private Pane textPane;
 

@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.hanze.control.MainController;
 
+/**
+ * Main class to start the application
+ */
 public class Main extends Application {
 
     /**
@@ -28,6 +31,7 @@ public class Main extends Application {
             cont.stopStockMakers();
         });
 
+        primaryStage.setMaximized(true);
         primaryStage.setTitle("Stock Market");
         primaryStage.setScene(new Scene(root, 900, 700));
         primaryStage.show();
