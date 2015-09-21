@@ -35,6 +35,7 @@ public class TextController implements Observer, StockView {
             String name = stock.getName();
             if (labels.get(name) == null) {
                 labels.put(name, new Label());
+                //if(labels.get(name) == null) System.out.println("The fuck son");
                 Platform.runLater(() -> textPane.getChildren().add(labels.get(name)));
             }
             Platform.runLater(() -> labels.get(name).setText(name + " : " + stock.getPrice()));
