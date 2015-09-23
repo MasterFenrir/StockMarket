@@ -18,7 +18,7 @@ import java.util.*;
 public class GraphController implements Observer, StockView, Initializable {
 
     // The name of the view
-    private static String VIEW_NAME = "Graph";
+    private static final String VIEW_NAME = "Graph";
 
     // The graph
     @FXML
@@ -61,7 +61,7 @@ public class GraphController implements Observer, StockView, Initializable {
             series.put(name, serie);
             Platform.runLater(() -> stockLineChart.getData().add(serie));
         }
-        Platform.runLater(() -> series.get(name).getData().add(new XYChart.Data(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()), price)));
+        Platform.runLater(() -> series.get(name).getData().add(new XYChart.Data<String, Number>(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()), price)));
         if (series.get(name).getData().size() > 10)
             Platform.runLater(() -> series.get(name).getData().remove(0));
     }
