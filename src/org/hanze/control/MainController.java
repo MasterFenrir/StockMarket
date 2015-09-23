@@ -65,7 +65,7 @@ public class MainController implements Initializable {
      */
     private void createStocks(List<Observer> views) {
         for (String e : STOCK_NAMES) {
-            Stock stock = new Stock(e, getRandomPrice(20));
+            Stock stock = new Stock(e, getRandomPrice(10));
             StockObserver obs = new StockObserver(views);
             stock.addObserver(obs);
             MakeTheStock maker = new MakeTheStock(stock);
