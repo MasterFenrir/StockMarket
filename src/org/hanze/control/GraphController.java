@@ -62,7 +62,8 @@ public class GraphController implements Observer, StockView, Initializable {
             Platform.runLater(() -> stockLineChart.getData().add(serie));
         }
         Platform.runLater(() -> series.get(name).getData().add(new XYChart.Data(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()), price)));
-        if (series.get(name).getData().size() > 10) series.get(name).getData().remove(0);
+        if (series.get(name).getData().size() > 10)
+            Platform.runLater(() -> series.get(name).getData().remove(0));
     }
 
     @Override

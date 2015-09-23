@@ -13,7 +13,7 @@ public class MakeTheStock implements Runnable {
     // The stock to fluctuate
     private Stock stock;
     // A boolean to stop the thread
-    private boolean stopped = false;
+    private volatile boolean stopped = false;
 
     /**
      * Initialize this object with a Stock object to change in the thread
